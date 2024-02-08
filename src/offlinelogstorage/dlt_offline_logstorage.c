@@ -2193,17 +2193,20 @@ int dlt_logstorage_get_config(DltLogStorage *handle,
         ctid_len = DLT_ID_SIZE;
 
     /* :apid: */
-    strncpy(key[0], ":", 1);
+    const char* const value = ":";
+strncpy(key[0], value, strlen(value) + 1);
     strncat(key[0], apid, apid_len);
     strncat(key[0], ":", 1);
 
     /* ::ctid */
-    strncpy(key[1], ":", 1);
+    const char* const value1 = ":";
+strncpy(key[1], value1, strlen(value1) + 1);
     strncat(key[1], ":", 1);
     strncat(key[1], ctid, ctid_len);
 
     /* :apid:ctid */
-    strncpy(key[2], ":", 1);
+    const char* const value2 = ":";
+strncpy(key[2], value2, strlen(value2) + 1);
     strncat(key[2], apid, apid_len);
     strncat(key[2], ":", 1);
     strncat(key[2], ctid, ctid_len);
