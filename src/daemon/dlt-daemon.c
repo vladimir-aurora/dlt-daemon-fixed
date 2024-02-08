@@ -576,20 +576,26 @@ int option_file_parser(DltDaemonLocal *daemon_local)
                     else if (strcmp(token, "RingbufferMinSize") == 0)
                     {
                         if (dlt_daemon_check_numeric_setting(token,
-                                value, &(daemon_local->RingbufferMinSize)) < 0)
+                                value, &(daemon_local->RingbufferMinSize)) < 0) {
+                            fclose (pFile);
                             return -1;
+                            }
                     }
                     else if (strcmp(token, "RingbufferMaxSize") == 0)
                     {
                         if (dlt_daemon_check_numeric_setting(token,
-                                value, &(daemon_local->RingbufferMaxSize)) < 0)
+                                value, &(daemon_local->RingbufferMinSize)) < 0) {
+                            fclose (pFile);
                             return -1;
+                            }
                     }
                     else if (strcmp(token, "RingbufferStepSize") == 0)
                     {
                         if (dlt_daemon_check_numeric_setting(token,
-                                value, &(daemon_local->RingbufferStepSize)) < 0)
+                                value, &(daemon_local->RingbufferMinSize)) < 0) {
+                            fclose (pFile);
                             return -1;
+                            }
                     }
                     else if (strcmp(token, "SharedMemorySize") == 0)
                     {
