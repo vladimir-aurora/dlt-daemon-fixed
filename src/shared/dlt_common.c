@@ -1102,14 +1102,22 @@ int dlt_message_read(DltMessage *msg, uint8_t *buffer, unsigned int length, int 
     if (msg->databuffer) {
         if (msg->datasize > msg->databuffersize) {
             free(msg->databuffer);
-            msg->databuffer = (uint8_t *)malloc(msg->datasize);
+            if (msg->datasize <= 0 || msg->datasize > 1000000) {
+  msg->databuffer = NULL;
+} else {
+msg->databuffer = (uint8_t *)malloc(msg->datasize);
             msg->databuffersize = msg->datasize;
+}
         }
     }
     else {
         /* get new memory for buffer */
-        msg->databuffer = (uint8_t *)malloc(msg->datasize);
-        msg->databuffersize = msg->datasize;
+        if (msg->datasize <= 0 || msg->datasize > 1000000) {
+  msg->databuffer = NULL;
+} else {
+msg->databuffer = (uint8_t *)malloc(msg->datasize);
+            msg->databuffersize = msg->datasize;
+}
     }
 
     if (msg->databuffer == NULL) {
