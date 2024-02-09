@@ -605,7 +605,7 @@ int dlt_logstorage_open_log_file(DltLogStorageFilterConfig *config,
             }
             config->working_file_name = strdup((*newest)->name);
         }
-        strncat(absolute_file_path, config->working_file_name, strlen(config->working_file_name));
+        strncat(absolute_file_path, config->working_file_name, sizeof(absolute_file_path) - strlen(absolute_file_path) - 1);
 
         dlt_vlog(LOG_DEBUG,
                  "%s: Number of log files-newest file-wrap_id [%u]-[%s]-[%u]\n",
@@ -698,7 +698,7 @@ int dlt_logstorage_open_log_file(DltLogStorageFilterConfig *config,
                            0,
                            sizeof(absolute_file_path) / sizeof(char));
                     strcat(absolute_file_path, storage_path);
-                    strncat(absolute_file_path, (*head)->name, strlen((*head)->name));
+                    strncat(absolute_file_path, (*head)->name, sizeof(absolute_file_path) - strlen(absolute_file_path) - 1);
                     dlt_vlog(LOG_DEBUG,
                              "%s: Remove '%s' (num_log_files: %d, config->num_files:%d, file_name:%s)\n",
                              __func__, absolute_file_path, num_log_files,
